@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #EEF3EC;
+    color: #17251C;
+    font-family: 'DM Sans', sans-serif;
+}
+header {
+    background-color: #D7E0D4;
+    padding: 0 80px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+section{
+    scroll-margin-top: 80px;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1F3D2B;
+}
+.logo img{
+    height: 40px;
+}
+.navbar{
+    max-width: 100%;
+    margin: 0 auto;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1F3D2B;
+}
+.nav-links{
+    list-style: none;
+    display: flex;
+    gap: 32px;
+}
+.nav-links a{
+    color: #5B6B60;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+.nav-links a:hover{
+    color: #1F3D2B;
+}
+.nav-botoes-espacamento{
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.nav-botoes{
+    color: white;
+    background-color: #1F3D2B;
+    padding: 12px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.nav-botoes:hover{
+    background-color: #3E6B48;
+    transform: translateY(-2px);
+}
+.hero{
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    padding: 72px 80px;
+}
+.hero-texto{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+.hero-titulo{
+    font-family: 'Fraunces', serif;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 1.05;
+    color: #1F3D2B;
+}
+.hero-descricao{
+    font-size: 18px;
+    line-height: 1.6;
+    color: #5B6B60;
+    max-width: 540px;
+}
+.hero-botoes{
+    display: flex;
+    gap: 12px;
+}
+.botao-principal{
+    color: white;
+    background-color: #1F3D2B;
+    padding: 14px 28px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.botao-principal:hover{
+    background-color: #3E6B48;
+    transform: translateY(-2px);
+}
+.botao-secundario{
+    color: #1F3D2B;
+    border: 2px solid #1F3D2B;
+    padding: 12px 26px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.botao-secundario:hover{
+    background-color: #1F3D2B;
+    color: white;
+}
+.hero-imagem{
+    flex: 1;
+    position: relative;
+    display: flex;
+    border-radius: 24px;
+    overflow: hidden;
+}
+.hero-imagem img{
+    flex: 1;
+    min-width: 0;
+    height: 440px;
+    object-fit: cover;
+    background-color: #A9C6A2;
+}
+.hero-imagem img:first-child{
+    filter: grayscale(70%);
+}
+.divisor{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background-color: white;
+    transform: translateX(-50%);
+}
+.rotulo{
+    position: absolute;
+    top: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+.rotulo-antes{
+    left: 20px;
+    background-color: rgba(23, 37, 28, 0.6);
+}
+.rotulo-depois{
+    right: 20px;
+    background-color: #3E6B48;
+}
+.humor-tag{
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: white;
+    color: #5B6B60;
+    font-size: 12px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(31, 61, 43, 0.15);
+}
+.humor-tag strong{
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    color: #1F3D2B;
+}
+.como-funciona{
+    background-color: white;
+    padding: 80px;
+}
+.secao-titulo{
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #1F3D2B;
+    margin-bottom: 40px;
+}
+.passos{
+    display: flex;
+    gap: 32px;
+}
+.passo{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #EEF3EC;
+    padding: 32px;
+    border-radius: 24px;
+    transition: transform 0.2s ease;
+}
+.passo:hover{
+    transform: translateY(-4px);
+}
+.passo-numero{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: #4F7FA8;
+}
+.passo-titulo{
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1F3D2B;
+}
+.passo p{
+    font-size: 16px;
+    line-height: 1.5;
+    color: #5B6B60;
+}
+.historia h5{
+    color: #A9C6A2;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+.historia p{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.35;
+    color: white;
+}
+.historia span{
+    color: #DCE7F0;
+    font-size: 15px;
+}
+.historia-texto{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.citacao{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.historia-fotos{
+    display: flex;
+    gap: 16px;
+}
+.historia-fotos img{
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 24px;
+    border: 4px solid #A9C6A2;
+}
+.historia-fotos img:first-child{
+    object-position: top;
+}
+.historia-fotos img:last-child{
+    margin-top: 48px;
+    object-position: left;
+}
+.historia{
+    background-color: #1F3D2B;
+    background-image: url("../imagens/Chuva.png");
+    animation: chuva-caindo 4s linear infinite;
+    padding: 96px 120px;
+    display: flex;
+    align-items: center;
+    gap: 64px;
+}
+@keyframes chuva-caindo{
+    from{
+        background-position: 0 0;
+    }
+    to{
+        background-position: 0 361px;
+    }
+}
+.rodape{
+    display: flex;
+    justify-content: space-between;
+    padding: 32px 80px;
+    font-size: 14px;
+    color: #5B6B60;
+}
+.rodape-frase{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: #3E6B48;
+}

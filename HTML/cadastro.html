@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/cadastro.css">
+    <link rel="icon" type="image/png" href="../imagens/logo-sol-no-livro.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <header class="painel">
+        <div class="logo">
+            <img src="../imagens/logo-sol-no-livro.png" alt="Logo: livro aberto com um sol">
+            <span>Entre Folhas</span>
+        </div>
+        <div class="painel-mensagem">
+            <h1>Todo diário começa <br> com um primeiro <br> passo.</h1>
+            <span>Crie sua conta e comece a guardar os seus <br> momentos na natureza.</span>
+        </div>
+    </header>
+
+    <div class="area-formulario">
+        <section class="formulario">
+            <ul class="abas">
+                <li><a class="aba aba-ativa" href="cadastro.html">Criar conta</a></li>
+                <li><a class="aba" href="login.html">Entrar</a></li>
+            </ul>
+            <h2>Crie o seu diário</h2>
+            <div class="campo">
+                <label for="ipt_nome">Nome</label>
+                <input type="text" id="ipt_nome" placeholder="diario">
+            </div>
+            <div class="campo">
+                <label for="ipt_email">Email</label>
+                <input type="text" id="ipt_email" placeholder="diario@gmail.com">
+            </div>
+            <div class="campo">
+                <label for="ipt_senha">Senha</label>
+                <input type="password" id="ipt_senha" placeholder="••••••">
+            </div>
+            <div class="campo">
+                <label for="ipt_confirmarSenha">Confirmar Senha</label>
+                <input type="password" id="ipt_confirmarSenha" placeholder="Repita a Senha">
+            </div>
+            <button class="botao-principal" onclick="Cadastro()">Criar meu diário</button>
+            <div class="link-login">
+                <span>Já tem conta?</span>
+                <a href="login.html">Entrar</a>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
