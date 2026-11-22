@@ -7,20 +7,22 @@
     <link rel="stylesheet" href="../CSS/cadastro.css">
     <link rel="icon" type="image/png" href="../imagens/logo-sol-no-livro.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-    <title>Cadastro</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap"
+        rel="stylesheet">
+    <title>Cadastro | Entre folhas</title>
 </head>
 
 <body>
     <header class="painel">
         <div class="logo">
-            <img src="../imagens/logo-sol-no-livro.png" alt="Logo: livro aberto com um sol">
-            <span>Entre Folhas</span>
+            <a href="index.html">
+                <img src="../imagens/logo-sol-no-livro.png" alt="Logo: livro aberto com um sol">
+                <strong>Entre folhas</strong>
+            </a>
         </div>
-        <div class="painel-mensagem">
-            <h1>Todo diário começa <br> com um primeiro <br> passo.</h1>
-            <span>Crie sua conta e comece a guardar os seus <br> momentos na natureza.</span>
-        </div>
+        <h1>Todo diário começa <br> com um primeiro <br> passo.</h1>
+        <span>Comece seu diário e cultive dias mais leves.</span>
     </header>
 
     <div class="area-formulario">
@@ -29,7 +31,7 @@
                 <li><a class="aba aba-ativa" href="cadastro.html">Criar conta</a></li>
                 <li><a class="aba" href="login.html">Entrar</a></li>
             </ul>
-            <h2>Crie o seu diário</h2>
+            <h2>Desperte na natureza</h2>
             <div class="campo">
                 <label for="ipt_nome">Nome</label>
                 <input type="text" id="ipt_nome" placeholder="diario">
@@ -37,22 +39,81 @@
             <div class="campo">
                 <label for="ipt_email">Email</label>
                 <input type="text" id="ipt_email" placeholder="diario@gmail.com">
+                <div class="mensagem-erro" id="email"></div>
             </div>
             <div class="campo">
                 <label for="ipt_senha">Senha</label>
                 <input type="password" id="ipt_senha" placeholder="••••••">
+                <div class="mensagem-erro" id="senha"></div>
             </div>
             <div class="campo">
                 <label for="ipt_confirmarSenha">Confirmar Senha</label>
                 <input type="password" id="ipt_confirmarSenha" placeholder="Repita a Senha">
+                <div class="mensagem-erro" id="confirmarSenha"></div>
             </div>
             <button class="botao-principal" onclick="Cadastro()">Criar meu diário</button>
-            <div class="link-login">
-                <span>Já tem conta?</span>
-                <a href="login.html">Entrar</a>
-            </div>
+            <div id="status_cadastro"></div>
         </section>
     </div>
-</body>
+    </body>
+    </html>
+    <script>
+        let usuarios = [];
+        function Cadastro() {
+            let cadastro = {
+                nome: ipt_nome.value,
+                email: ipt_email.value,
+                senha: ipt_senha.value,
+                confirmarSenha: ipt_confirmarSenha.value
+            }
+            let maiusculas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+            let caracteres = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', ',', '.', '?'];
+            let email_arroba = cadastro.email.indexOf('@');
+            let temMaiuscula = false;
+            let temCaractere = false;
 
-</html>
+            for (let i = 0; i < cadastro.senha.length; i++) {
+                let letraAtual = cadastro.senha[i];
+
+                if (maiusculas.includes(letraAtual)) {
+                    temMaiuscula = true;
+                }
+                if (caracteres.includes(letraAtual)) {
+                    temCaractere = true;
+                }
+
+            }
+
+            ipt_email.classList.remove('ativo');
+            ipt_senha.classList.remove('ativo');
+            ipt_confirmarSenha.classList.remove('ativo');
+            email.textContent = ""
+            senha.textContent = ""
+            confirmarSenha.textContent = ""
+            status_cadastro.textContent = ""
+            status_cadastro.classList.remove('erro');
+
+            if (cadastro.nome == "" || cadastro.email == "" || cadastro.senha == "" || cadastro.confirmarSenha == "") {
+                status_cadastro.classList.add('erro');
+                status_cadastro.textContent = "Preencha todos os campos"
+            } else if (email_arroba < 0) {
+                ipt_email.classList.add('ativo');
+                email.textContent = "Email inválido"
+            } else if (cadastro.senha.length < 8) {
+                ipt_senha.classList.add('ativo');
+                senha.textContent = "A senha precisa ter pelo menos 8 caracteres"
+            } else if (temMaiuscula == false) {
+                ipt_senha.classList.add('ativo');
+                senha.textContent = "A senha precisa ter pelo menos uma letra maiúscula"
+            } else if (temCaractere == false) {
+                ipt_senha.classList.add('ativo');
+                senha.textContent = "A senha precisa ter pelo menos um caractere especial"
+            } else if (cadastro.senha !== cadastro.confirmarSenha) {
+                ipt_confirmarSenha.classList.add('ativo');
+                confirmarSenha.textContent = "As senhas não coincidem"
+            } else {
+                usuarios.push(cadastro);
+                status_cadastro.textContent = "Cadastro realizado com sucesso!"
+            }
+        }
+    </script>

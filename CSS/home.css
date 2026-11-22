@@ -24,17 +24,22 @@ header {
 section{
     scroll-margin-top: 80px;
 }
-.logo{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Fraunces', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: #1F3D2B;
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1F3D2B;
 }
 .logo img{
     height: 40px;
+    display: block;
+}
+.logo span {
+  color: #1F3D2B;
 }
 .navbar{
     max-width: 100%;
@@ -43,12 +48,6 @@ section{
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.logo{
-    font-family: 'Fraunces', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: #1F3D2B;
 }
 .nav-links{
     list-style: none;

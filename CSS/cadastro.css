@@ -14,7 +14,7 @@ body {
 .painel{
     background-color: #1F3D2B;
     background-image: url("../imagens/Chuva.png");
-    animation: chuva-caindo 4s linear infinite;
+    animation: chuva-caindo 3s linear infinite;
     width: 600px;
     padding: 80px 72px;
     display: flex;
@@ -32,6 +32,7 @@ body {
 }
 .logo{
     display: flex;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
     font-family: 'Fraunces', serif;
@@ -39,13 +40,19 @@ body {
     font-weight: 600;
     color: #ffffff;
 }
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
 .logo img{
     height: 40px;
-}
-.painel-mensagem{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
 }
 .painel h1{
     font-family: 'Fraunces', serif;
@@ -54,14 +61,10 @@ body {
     line-height: 1.1;
     color: #ffffff;
 }
-.painel-mensagem span{
+.painel span{
     font-size: 17px;
     line-height: 1.5;
     color: #A9C6A2;
-}
-.painel-rodape{
-    font-size: 14px;
-    color: #DCE7F0;
 }
 .area-formulario{
     flex: 1;
@@ -134,8 +137,32 @@ body {
 }
 .campo input:focus{
     outline: none;
-    border-color: #4F7FA8;
+    border-color: #3E6B48;
 }
+.campo input.ativo,
+.campo input.ativo:focus{
+    border-color: #C0392B;
+}
+.mensagem-erro{
+    font-size: 13px;
+    color: #C0392B;
+}
+.mensagem-erro:empty{
+    display: none;
+}
+#status_cadastro{
+    font-size: 14px;
+    font-weight: 500;
+    color: #3E6B48;
+    text-align: center;
+}
+#status_cadastro.erro{
+    color: #C0392B;
+}
+#status_cadastro:empty{
+    display: none;
+}
+
 .botao-principal{
     color: white;
     background-color: #1F3D2B;
@@ -151,18 +178,4 @@ body {
 .botao-principal:hover{
     background-color: #3E6B48;
     transform: translateY(-2px);
-}
-.link-login{
-    display: flex;
-    gap: 6px;
-    font-size: 14px;
-    color: #5B6B60;
-}
-.link-login a{
-    color: #4F7FA8;
-    font-weight: 600;
-    text-decoration: none;
-}
-.link-login a:hover{
-    text-decoration: underline;
 }

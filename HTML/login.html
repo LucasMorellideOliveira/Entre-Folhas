@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="icon" type="image/png" href="../imagens/logo-sol-no-livro.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <title>Login | Entre folhas</title>
+</head>
+
+<body>
+    <header class="painel">
+        <div class="logo">
+            <a href="index.html">
+                <img src="../imagens/logo-sol-no-livro.png" alt="Logo: livro aberto com um sol">
+                <strong>Entre folhas</strong>
+            </a>
+        </div>
+            <h1 id="mensagem_login"></h1>
+            <span>Respire fundo e continue sua jornada</span>
+    </header>
+
+    <div class="area-formulario">
+        <section class="formulario">
+            <ul class="abas">
+                <li><a class="aba" href="cadastro.html">Criar conta</a></li>
+                <li><a class="aba aba-ativa" href="login.html">Entrar</a></li>
+            </ul>
+            <h2>De volta à natureza</h2>
+            <div class="campo">
+                <label for="ipt_email">Email</label>
+                <input type="text" id="ipt_email" placeholder="diario@gmail.com">
+            </div>
+            <div class="campo">
+                <label for="ipt_senha">Senha</label>
+                <input type="password" id="ipt_senha" placeholder="••••••">
+            </div>
+            <button class="botao-principal" onclick="Entrar()">Entrar no meu diário</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+<script>
+    let titulos = ["Continue escrevendo o que te faz bem.", "Retome de onde você parou.", "Mais um dia, mais uma postagem.",
+                  "Que bom tê-lo de volta ao seu diário.", "O seu espaço de calma está esperando por você."]
+    let aleatoriedade = Math.floor(Math.random() * titulos.length)
+    mensagem_login.textContent = titulos[aleatoriedade]
+</script>
