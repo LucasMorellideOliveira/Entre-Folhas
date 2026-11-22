@@ -172,3 +172,15 @@ body {
 .link-cadastro a:hover{
     text-decoration: underline;
 }
+#status_login{
+    font-size: 14px;
+    font-weight: 500;
+    color: #C0392B;
+    text-align: center;
+}
+#status_login{
+    font-size: 14px;
+    font-weight: 500;
+    color: #3E6B48;
+    text-align: center;
+}

@@ -7,20 +7,22 @@
     <link rel="stylesheet" href="../CSS/login.css">
     <link rel="icon" type="image/png" href="../imagens/logo-sol-no-livro.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap"
+        rel="stylesheet">
     <title>Login | Entre folhas</title>
 </head>
 
 <body>
     <header class="painel">
         <div class="logo">
-            <a href="index.html">
+            <a href="../index.html">
                 <img src="../imagens/logo-sol-no-livro.png" alt="Logo: livro aberto com um sol">
                 <strong>Entre folhas</strong>
             </a>
         </div>
-            <h1 id="mensagem_login"></h1>
-            <span>Respire fundo e continue sua jornada</span>
+        <h1 id="mensagem_login"></h1>
+        <span>Respire fundo e continue sua jornada</span>
     </header>
 
     <div class="area-formulario">
@@ -39,14 +41,55 @@
                 <input type="password" id="ipt_senha" placeholder="••••••">
             </div>
             <button class="botao-principal" onclick="Entrar()">Entrar no meu diário</button>
-            </div>
+            <div id="status_login"></div>
         </section>
     </div>
 </body>
+
 </html>
 <script>
     let titulos = ["Continue escrevendo o que te faz bem.", "Retome de onde você parou.", "Mais um dia, mais uma postagem.",
-                  "Que bom tê-lo de volta ao seu diário.", "O seu espaço de calma está esperando por você."]
+        "Que bom tê-lo de volta ao seu diário.", "O seu espaço de calma está esperando por você."]
     let aleatoriedade = Math.floor(Math.random() * titulos.length)
     mensagem_login.textContent = titulos[aleatoriedade]
+
+    function Entrar() {
+        let login = {
+            email: ipt_email.value,
+            senha: ipt_senha.value,
+        }
+        status_login.textContent = "";
+        status_login.classList.remove('erro');
+        if (login.email == "" || login.senha == "") {
+            status_login.classList.add('erro');
+            status_login.textContent = "Preencha todos os campos"
+        } else {
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    emailServer: login.email,
+                    senhaServer: login.senha
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (json) {
+                        sessionStorage.ID_USUARIO = json.id;
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        status_login.textContent = "Login realizado com sucesso!"
+                        setTimeout(function () {
+                            window.location.href = "../index.html";
+                        }, 3000);
+                    });
+                } else {
+                    status_login.classList.add('erro');
+                    status_login.textContent = "Email ou senha incorretos!"
+                }
+            }).catch(function (erro) {
+                status_login.classList.add('erro');
+                status_login.textContent = "Erro de conexão. Tente novamente."
+                console.log(erro)
+            })
+        }
+    }
 </script>

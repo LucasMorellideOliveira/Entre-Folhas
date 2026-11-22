@@ -16,7 +16,7 @@
 <body>
     <header class="painel">
         <div class="logo">
-            <a href="index.html">
+            <a href="../index.html">
                 <img src="../imagens/logo-sol-no-livro.png" alt="Logo: livro aberto com um sol">
                 <strong>Entre folhas</strong>
             </a>
@@ -55,10 +55,7 @@
             <div id="status_cadastro"></div>
         </section>
     </div>
-    </body>
-    </html>
     <script>
-        let usuarios = [];
         function Cadastro() {
             let cadastro = {
                 nome: ipt_nome.value,
@@ -112,8 +109,33 @@
                 ipt_confirmarSenha.classList.add('ativo');
                 confirmarSenha.textContent = "As senhas não coincidem"
             } else {
-                usuarios.push(cadastro);
-                status_cadastro.textContent = "Cadastro realizado com sucesso!"
+                
+                fetch("/usuarios/cadastrar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        nomeServer: cadastro.nome,
+                        emailServer: cadastro.email,
+                        senhaServer: cadastro.senha
+                    })
+                }).then(function (resposta) {
+                    if (resposta.ok) {
+                        status_cadastro.textContent = "Cadastro realizado com sucesso!"
+                        setTimeout(function () {
+                            window.location.href = "login.html";
+                        }, 3000);
+                    } else {
+                        status_cadastro.classList.add('erro');
+                        status_cadastro.textContent = "Não foi possível cadastrar. Verifique se o e-mail já está em uso."
+                    }
+                }).catch(function (erro) {
+                    status_cadastro.classList.add('erro');
+                    status_cadastro.textContent = "Erro de conexão. Tente novamente.";
+                    console.log(erro);
+                });
             }
         }
     </script>
+</body>
+
+</html>
