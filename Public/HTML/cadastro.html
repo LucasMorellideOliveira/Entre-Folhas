@@ -84,30 +84,30 @@
             ipt_email.classList.remove('ativo');
             ipt_senha.classList.remove('ativo');
             ipt_confirmarSenha.classList.remove('ativo');
-            email.textContent = ""
-            senha.textContent = ""
-            confirmarSenha.textContent = ""
-            status_cadastro.textContent = ""
+            email.innerHTML = ``
+            senha.innerHTML = ``
+            confirmarSenha.innerHTML = ``
+            status_cadastro.innerHTML = ``
             status_cadastro.classList.remove('erro');
 
-            if (cadastro.nome == "" || cadastro.email == "" || cadastro.senha == "" || cadastro.confirmarSenha == "") {
+            if (cadastro.nome == `` || cadastro.email == `` || cadastro.senha == `` || cadastro.confirmarSenha == ``) {
                 status_cadastro.classList.add('erro');
-                status_cadastro.textContent = "Preencha todos os campos"
+                status_cadastro.innerHTML = `Preencha todos os campos`
             } else if (email_arroba < 0) {
                 ipt_email.classList.add('ativo');
-                email.textContent = "Email inválido"
+                email.innerHTML = `Email inválido`
             } else if (cadastro.senha.length < 8) {
                 ipt_senha.classList.add('ativo');
-                senha.textContent = "A senha precisa ter pelo menos 8 caracteres"
+                senha.innerHTML = `A senha precisa ter pelo menos 8 caracteres`
             } else if (temMaiuscula == false) {
                 ipt_senha.classList.add('ativo');
-                senha.textContent = "A senha precisa ter pelo menos uma letra maiúscula"
+                senha.innerHTML = `A senha precisa ter pelo menos uma letra maiúscula`
             } else if (temCaractere == false) {
                 ipt_senha.classList.add('ativo');
-                senha.textContent = "A senha precisa ter pelo menos um caractere especial"
+                senha.innerHTML = `A senha precisa ter pelo menos um caractere especial`
             } else if (cadastro.senha !== cadastro.confirmarSenha) {
                 ipt_confirmarSenha.classList.add('ativo');
-                confirmarSenha.textContent = "As senhas não coincidem"
+                confirmarSenha.innerHTML = `As senhas não coincidem`
             } else {
                 
                 fetch("/usuarios/cadastrar", {
@@ -120,17 +120,17 @@
                     })
                 }).then(function (resposta) {
                     if (resposta.ok) {
-                        status_cadastro.textContent = "Cadastro realizado com sucesso!"
+                        status_cadastro.innerHTML = `Cadastro realizado com sucesso!`
                         setTimeout(function () {
                             window.location.href = "login.html";
                         }, 3000);
                     } else {
                         status_cadastro.classList.add('erro');
-                        status_cadastro.textContent = "Não foi possível cadastrar. Verifique se o e-mail já está em uso."
+                        status_cadastro.innerHTML = `Não foi possível cadastrar. Verifique se o e-mail já está em uso.`
                     }
                 }).catch(function (erro) {
                     status_cadastro.classList.add('erro');
-                    status_cadastro.textContent = "Erro de conexão. Tente novamente.";
+                    status_cadastro.innerHTML = `Erro de conexão. Tente novamente.`;
                     console.log(erro);
                 });
             }

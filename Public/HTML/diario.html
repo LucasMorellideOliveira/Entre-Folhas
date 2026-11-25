@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/diario.css">
+    <link rel="icon" type="image/png" href="../imagens/logo-sol-no-livro.png">
+    <title>Meu diário | Entre Folhas</title>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="diario.html">
+                <img src="../imagens/logo-sol-no-livro.png" alt="Logo: livro aberto com um sol">
+                <span>Entre Folhas</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a class="link-ativo" href="diario.html">Meu diário</a></li>
+            <li><a href="registro.html">Novo registro</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="sons.html">Sons</a></li>
+        </ul>
+        <div class="nav-usuario">
+            <span>Olá, <strong id="nome_usuario">Lucas</strong></span>
+            <a class="nav-botoes" href="../index.html">Sair</a>
+        </div>
+    </header>
+
+    <section class="pagina">
+        <div class="pagina-topo">
+            <div class="pagina-titulo">
+                <h1>Meu diário</h1>
+                <p>Os seus momentos na natureza, do mais recente para o mais antigo.</p>
+            </div>
+            <a class="botao-principal" href="registro.html">+ Novo registro</a>
+        </div>
+
+        <div class="diario-vazio" id="diario_vazio">
+            <h2>Nenhuma postagem feita ainda</h2>
+            <p>Que tal guardar o seu primeiro momento na natureza?</p>
+            <a class="botao-principal" href="registro.html">Criar meu primeiro registro</a>
+        </div>
+
+        <div class="grade-registros" id="lista_registros"></div>
+    </section>
+</body>
+</html>
+<script>
+</script>

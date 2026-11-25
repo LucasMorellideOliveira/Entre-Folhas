@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/registro.css">
+    <link rel="icon" type="image/png" href="../imagens/logo-sol-no-livro.png">
+    <title>Novo registro | Entre Folhas</title>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="diario.html">
+                <img src="../imagens/logo-sol-no-livro.png">
+                <span>Entre Folhas</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="diario.html">Meu diário</a></li>
+            <li><a class="link-ativo" href="registro.html">Novo registro</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="sons.html">Sons</a></li>
+        </ul>
+        <div class="nav-usuario">
+            <span>Olá, <strong id="nome_usuario">Lucas</strong></span>
+            <a class="nav-botoes" href="../index.html">Sair</a>
+        </div>
+    </header>
+
+    <section class="pagina-compacta">
+        <div class="titulo-compacto">
+            <h1>Novo registro</h1>
+            <p>Guarde este momento e como ele mexeu com você.</p>
+        </div>
+
+        <div class="area-registro">
+            <section class="formulario">
+                <div class="linha">
+                    <div class="campo">
+                        <label for="ipt_titulo">Título</label>
+                        <input type="text" id="ipt_titulo" placeholder="Ex: Subindo a montanha"
+                            oninput="atualizarPrevia()">
+                    </div>
+                    <div class="campo">
+                        <label for="ipt_local">Local</label>
+                        <input type="text" id="ipt_local" placeholder="Ex: Sítio dos avós" oninput="atualizarPrevia()">
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label for="ipt_data">Data</label>
+                        <input type="date" id="ipt_data" onchange="atualizarPrevia()">
+                    </div>
+                    <div class="campo">
+                        <label for="slc_clima">Clima</label>
+                        <select id="slc_clima" onchange="atualizarPrevia()">
+                            <option value="">Escolha o clima</option>
+                            <option value="Ensolarado">Ensolarado</option>
+                            <option value="Nublado">Nublado</option>
+                            <option value="Chuvoso">Chuvoso</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label for="slc_humor_antes">Humor antes</label>
+                        <select id="slc_humor_antes" onchange="atualizarPrevia()">
+                            <option value="">De 1 a 5</option>
+                            <option value="1">1 · Muito mal</option>
+                            <option value="2">2 · Mal</option>
+                            <option value="3">3 · Mais ou menos</option>
+                            <option value="4">4 · Bem</option>
+                            <option value="5">5 · Muito bem</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="slc_humor_depois">Humor depois</label>
+                        <select id="slc_humor_depois" onchange="atualizarPrevia()">
+                            <option value="">De 1 a 5</option>
+                            <option value="1">1 · Muito mal</option>
+                            <option value="2">2 · Mal</option>
+                            <option value="3">3 · Mais ou menos</option>
+                            <option value="4">4 · Bem</option>
+                            <option value="5">5 · Muito bem</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label>Categorias <span class="dica">(marque uma ou mais)</span></label>
+                    <div class="categorias">
+                        <label class="chip-categoria">
+                            <input type="checkbox" name="categoria" value="1" onchange="atualizarPrevia()"> Fauna
+                        </label>
+                        <label class="chip-categoria">
+                            <input type="checkbox" name="categoria" value="2" onchange="atualizarPrevia()"> Flora
+                        </label>
+                        <label class="chip-categoria">
+                            <input type="checkbox" name="categoria" value="3" onchange="atualizarPrevia()"> Paisagem
+                        </label>
+                        <label class="chip-categoria">
+                            <input type="checkbox" name="categoria" value="4" onchange="atualizarPrevia()"> Clima
+                        </label>
+                        <label class="chip-categoria">
+                            <input type="checkbox" name="categoria" value="5" onchange="atualizarPrevia()"> Água
+                        </label>
+                    </div>
+                </div>
+
+                <div class="campo campo-descricao">
+                    <label for="ipt_descricao">O que você sentiu? O que quer transmitir?</label>
+                    <textarea id="ipt_descricao" maxlength="264"
+                        placeholder="Antes de subir eu estava confuso. Conforme fui subindo, os pensamentos começaram a fluir..."
+                        oninput="atualizarPrevia()"></textarea>
+                </div>
+
+                <div class="linha linha-final">
+                    <div class="campo area-fotos">
+                        <label for="ipt_fotos">Fotos do momento</label>
+                        <input type="file" id="ipt_fotos" accept="image/*" multiple onchange="atualizarPrevia()">
+                    </div>
+                    <button class="botao-principal" onclick="Publicar()">Publicar no diário</button>
+                </div>
+                <div id="status_registro"></div>
+            </section>
+
+            <div class="previa">
+                <span class="previa-rotulo">Prévia do seu registro</span>
+                <div class="card-registro">
+                    <div class="card-foto" id="previa_foto"></div>
+                    <div class="card-conteudo">
+                        <span class="card-meta"><span id="previa_local">Local</span> · <span
+                                id="previa_data">Data</span></span>
+                        <h3 id="previa_titulo">Título do momento</h3>
+                        <p id="previa_descricao">O que você sentiu vai aparecer aqui.</p>
+                        <div class="card-chips">
+                            <span class="chip-humor" id="previa_humor">Humor ? → ?</span>
+                            <span class="chip-clima" id="previa_clima">Clima</span>
+                        </div>
+                        <div class="card-chips" id="previa_categorias"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    function atualizarPrevia() {
+
+        if (ipt_titulo.value == "") {
+            previa_titulo.innerHTML = `Título do momento`
+        } else {
+            previa_titulo.innerHTML = ipt_titulo.value
+        }
+        if (ipt_local.value == "") {
+            previa_local.innerHTML = `Local`
+        } else {
+            previa_local.innerHTML = ipt_local.value
+        }
+        if (ipt_descricao.value == "") {
+            previa_descricao.innerHTML = `Antes de subir eu estava confuso. Conforme fui subindo, os pensamentos começaram a fluir...`
+        } else {
+            previa_descricao.innerHTML = ipt_descricao.value
+        }
+        if (slc_clima.value == "") {
+            previa_clima.innerHTML = `Clima`
+        } else {
+            previa_clima.innerHTML = slc_clima.value
+        }
+        if (ipt_data.value == "") {
+            previa_data.innerHTML = `Data`
+        } else {
+            let partes = ipt_data.value.split("-")
+            previa_data.innerHTML = `${partes[2]}/${partes[1]}/${partes[0]}`
+        }
+        if (ipt_fotos.files.length == 0) {
+            previa_foto.innerHTML = ""
+        } else {
+            let endereco = URL.createObjectURL(ipt_fotos.files[0])
+            previa_foto.innerHTML = `<img src="${endereco}">`
+        }
+
+        let humorAntes = slc_humor_antes.value
+        let humorDepois = slc_humor_depois.value
+        previa_humor.innerHTML = `Humor ${humorAntes}  →  ${humorDepois}`
+
+        let nomesCategorias = ["Fauna", "Flora", "Paisagem", "Clima", "Água"]
+        let categorias = document.getElementsByName("categoria")
+
+        previa_categorias.innerHTML = ""
+        for (let i = 0; i < categorias.length; i++) {
+            if (categorias[i].checked) {
+                previa_categorias.innerHTML += '<span class="chip-categoria-previa">' + nomesCategorias[i] + '</span>'
+            }
+        }
+
+    }
+
+</script>
+
+</html>
