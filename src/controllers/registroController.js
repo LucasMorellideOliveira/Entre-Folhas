@@ -58,7 +58,23 @@ function listar(req, res) {
         });
 }
 
+function listarPorCategoria(req, res) {
+    var idUsuario = req.params.idUsuario;
+    var idCategoria = req.params.idCategoria;
+
+    registroModel.listarPorCategoria(idUsuario, idCategoria)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao filtrar os registros! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     cadastrar,
-    listar
+    listar,
+    listarPorCategoria
 };

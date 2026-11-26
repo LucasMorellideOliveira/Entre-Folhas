@@ -223,3 +223,28 @@ header {
     padding: 6px 12px;
     border-radius: 20px;
 }
+
+.filtros{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.botao-filtro{
+    background-color: #ffffff;
+    color: #1F3D2B;
+    border: 1px solid #A9C6A2;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.botao-filtro:hover{
+    background-color: #EEF3EC;
+}
+.botao-filtro.filtro-ativo{
+    background-color: #1F3D2B;
+    color: white;
+}

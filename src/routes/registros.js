@@ -12,4 +12,8 @@ router.get("/listar/:idUsuario", function (req, res) {
     registroController.listar(req, res);
 });
 
+router.get("/listar/:idUsuario/:idCategoria", function (req, res) {
+    registroController.listarPorCategoria(req, res);
+});
+
 module.exports = router;

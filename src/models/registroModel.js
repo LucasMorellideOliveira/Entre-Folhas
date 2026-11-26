@@ -40,8 +40,24 @@ function listar(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function listarPorCategoria(idUsuario, idCategoria) {
+    var instrucaoSql = `
+        SELECT r.idRegistro, r.titulo, r.descricao, r.local_registro AS local,
+               DATE_FORMAT(r.data_registro, '%d/%m/%Y') AS data,
+               r.clima, r.humor_antes AS humorAntes, r.humor_depois AS humorDepois,
+               r.foto AS capa
+        FROM registro AS r
+        JOIN registro_categoria AS rc ON rc.fkRegistro = r.idRegistro
+        WHERE r.fkUsuario = ${idUsuario} AND rc.fkCategoria = ${idCategoria}
+        ORDER BY r.data_registro DESC, r.idRegistro DESC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrar,
     cadastrarCategorias,
-    listar
+    listar,
+    listarPorCategoria
 };

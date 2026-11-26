@@ -41,9 +41,18 @@
             <a class="botao-principal" href="registro.html">+ Novo registro</a>
         </div>
 
+        <div class="filtros">
+            <button class="botao-filtro filtro-ativo" onclick="filtrar(0, this)">Todos</button>
+            <button class="botao-filtro" onclick="filtrar(1, this)">Fauna</button>
+            <button class="botao-filtro" onclick="filtrar(2, this)">Flora</button>
+            <button class="botao-filtro" onclick="filtrar(3, this)">Paisagem</button>
+            <button class="botao-filtro" onclick="filtrar(4, this)">Clima</button>
+            <button class="botao-filtro" onclick="filtrar(5, this)">Água</button>
+        </div>
+
         <div class="diario-vazio" id="diario_vazio">
-            <h2>Nenhuma postagem feita ainda</h2>
-            <p>Que tal guardar o seu primeiro momento na natureza?</p>
+            <h2 id="titulo_vazio">Nenhuma postagem feita ainda</h2>
+            <p id="texto_vazio">Que tal guardar o seu primeiro momento na natureza?</p>
             <a class="botao-principal" href="registro.html">Criar meu primeiro registro</a>
         </div>
 
@@ -80,8 +89,44 @@
             })
     }
 
+    let categoriaAtual = 0
+
+    function filtrar(idCategoria, botao) {
+        categoriaAtual = idCategoria
+
+        let botoes = document.getElementsByClassName("botao-filtro")
+        for (let i = 0; i < botoes.length; i++) {
+            botoes[i].classList.remove("filtro-ativo")
+        }
+        botao.classList.add("filtro-ativo") 
+
+        let url = `/registros/listar/${sessionStorage.ID_USUARIO}`
+        if (idCategoria != 0) {
+            url = `/registros/listar/${sessionStorage.ID_USUARIO}/${idCategoria}`
+        }
+
+        fetch(url)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (registros) {
+                        montarCards(registros)
+                    })
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro)
+            })
+    }
+
     function montarCards(registros) {
         if (registros.length == 0) {
+            if (categoriaAtual == 0) {
+                titulo_vazio.innerHTML = "Nenhuma postagem feita ainda"
+                texto_vazio.innerHTML = "Que tal guardar o seu primeiro momento na natureza?"
+            } else {
+                titulo_vazio.innerHTML = "Nenhum registro nessa categoria"
+                texto_vazio.innerHTML = "Escolha outra categoria ou registre um novo momento."
+            }
             diario_vazio.style.display = "flex"
             lista_registros.innerHTML = ""
         } else {
