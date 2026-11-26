@@ -4,3 +4,5 @@ package-lock.json
 .env
 .github
 .env.dev
+public/fotos/
+public/sons/

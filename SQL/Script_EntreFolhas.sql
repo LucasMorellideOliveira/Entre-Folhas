@@ -18,17 +18,10 @@ data_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
 clima VARCHAR(45) NOT NULL CONSTRAINT chkClima CHECK (clima IN ('Ensolarado', 'Nublado', 'Chuvoso')),
 humor_antes TINYINT NOT NULL CONSTRAINT chkHumorAntes CHECK (humor_antes BETWEEN 1 AND 5),
 humor_depois TINYINT NOT NULL CONSTRAINT chkHumorDepois CHECK (humor_depois BETWEEN 1 AND 5),
+foto VARCHAR(255),
 fkUsuario INT NOT NULL,
 CONSTRAINT fkUsuario FOREIGN KEY (fkUsuario)
 REFERENCES usuario(idUsuario)
-);
-
-CREATE TABLE foto (
-idFoto INT PRIMARY KEY AUTO_INCREMENT,
-caminho VARCHAR(255) NOT NULL,
-fkRegistro INT NOT NULL,
-CONSTRAINT fkRegistroFoto FOREIGN KEY (fkRegistro)
-REFERENCES registro(idRegistro)
 );
 
 CREATE TABLE categoria (

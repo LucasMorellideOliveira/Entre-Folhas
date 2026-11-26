@@ -26,11 +26,10 @@
             <li><a href="diario.html">Meu diário</a></li>
             <li><a href="registro.html">Novo registro</a></li>
             <li><a class="link-ativo" href="dashboard.html">Dashboard</a></li>
-            <li><a href="sons.html">Sons</a></li>
         </ul>
         <div class="nav-usuario">
             <span>Olá, <strong id="nome_usuario">Lucas</strong></span>
-            <a class="nav-botoes" href="../index.html">Sair</a>
+            <a class="nav-botoes" onclick="Sair()">Sair</a>
         </div>
     </header>
 
@@ -67,7 +66,7 @@
         <div class="destaque-graficos">
             <div class="graficos">
                 <div class="card-grafico grafico-grande">
-                    <h3>Humor antes e depois de cada registro</h3>
+                    <h3>Humor antes e depois ao longo dos registros</h3>
                     <div class="area-grafico">
                         <canvas id="grafico_humor"></canvas>
                     </div>
@@ -81,9 +80,126 @@
             </div>
         </div>
     </section>
-
-    <script>
-    </script>
 </body>
 
 </html>
+<script>
+    if (sessionStorage.ID_USUARIO == undefined) {
+        window.location.href = "login.html"
+    }
+    nome_dashboard.innerHTML = sessionStorage.NOME_USUARIO
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO
+
+    function Sair() {
+        sessionStorage.clear()
+        window.location.href = "../index.html"
+    }
+
+    function carregarDashboard() {
+        fetch(`/registros/listar/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (registros) {
+                        calcularIndicadores(registros)
+                    })
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro)
+            })
+    }
+
+    function calcularIndicadores(registros) {
+        let total = registros.length
+        kpi_total.innerHTML = total
+
+        if (total == 0) {
+            kpi_antes.innerHTML = "-"
+            kpi_depois.innerHTML = "-"
+            kpi_melhor_clima.innerHTML = "-"
+            kpi_melhor_clima_detalhe.innerHTML = "Faça seu primeiro registro"
+        } else {
+            let somaAntes = 0
+            let somaDepois = 0
+            for (let i = 0; i < total; i++) {
+                somaAntes += registros[i].humorAntes
+                somaDepois += registros[i].humorDepois
+            }
+            let mediaAntes = somaAntes / total
+            let mediaDepois = somaDepois / total
+            kpi_antes.innerHTML = mediaAntes.toFixed(1).replace(".", ",")
+            kpi_depois.innerHTML = mediaDepois.toFixed(1).replace(".", ",")
+
+            let climas = ["Ensolarado", "Nublado", "Chuvoso"]
+            let somaMelhora = [0, 0, 0]
+            let quantidade = [0, 0, 0]
+
+            for (let i = 0; i < total; i++) {
+                for (let j = 0; j < climas.length; j++) {
+                    if (registros[i].clima == climas[j]) {
+                        somaMelhora[j] += registros[i].humorDepois - registros[i].humorAntes
+                        quantidade[j]++
+                    }
+                }
+            }
+
+            let mediaMelhora = [0, 0, 0]
+            let melhor = -1
+            for (let j = 0; j < climas.length; j++) {
+                if (quantidade[j] > 0) {
+                    mediaMelhora[j] = somaMelhora[j] / quantidade[j]
+                    if (melhor == -1 || mediaMelhora[j] > mediaMelhora[melhor]) {
+                        melhor = j
+                    }
+                }
+            }
+
+            kpi_melhor_clima.innerHTML = climas[melhor]
+            kpi_melhor_clima_detalhe.innerHTML = `${mediaMelhora[melhor].toFixed(1).replace(".", ",")} de melhora média`
+
+            desenharGraficos(registros, climas, mediaMelhora)
+        }
+    }
+
+    function desenharGraficos(registros, climas, mediaMelhora) {
+        let datas = []
+        let antes = []
+        let depois = []
+
+        for (let i = registros.length - 1; i >= 0; i--) {
+            datas.push(registros[i].data)
+            antes.push(registros[i].humorAntes)
+            depois.push(registros[i].humorDepois)
+        }
+
+        new Chart(grafico_humor, {
+            type: 'line',
+            data: {
+                labels: datas,
+                datasets: [
+                    { label: 'Antes', data: antes, borderColor: '#A9C6A2', backgroundColor: '#A9C6A2', pointRadius: 5, tension: 0.3 },
+                    { label: 'Depois', data: depois, borderColor: '#1F3D2B', backgroundColor: '#1F3D2B', pointRadius: 5, tension: 0.3 }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: { y: { min: 0, max: 5 } }
+            }
+        })
+
+        new Chart(grafico_clima, {
+            type: 'bar',
+            data: {
+                labels: climas,
+                datasets: [
+                    { label: 'Melhora média', data: mediaMelhora, backgroundColor: '#3E6B48' }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false
+            }
+        })
+    }
+
+    carregarDashboard()
+</script>

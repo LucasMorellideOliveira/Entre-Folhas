@@ -25,11 +25,10 @@
             <li><a href="diario.html">Meu diário</a></li>
             <li><a class="link-ativo" href="registro.html">Novo registro</a></li>
             <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="sons.html">Sons</a></li>
         </ul>
         <div class="nav-usuario">
             <span>Olá, <strong id="nome_usuario">Lucas</strong></span>
-            <a class="nav-botoes" href="../index.html">Sair</a>
+            <a class="nav-botoes" onclick="Sair()">Sair</a>
         </div>
     </header>
 
@@ -125,7 +124,7 @@
                 <div class="linha linha-final">
                     <div class="campo area-fotos">
                         <label for="ipt_fotos">Fotos do momento</label>
-                        <input type="file" id="ipt_fotos" accept="image/*" multiple onchange="atualizarPrevia()">
+                        <input type="file" id="ipt_fotos" accept="image/*" onchange="atualizarPrevia()">
                     </div>
                     <button class="botao-principal" onclick="Publicar()">Publicar no diário</button>
                 </div>
@@ -152,8 +151,20 @@
         </div>
     </section>
 </body>
+</html>
 <script>
     function atualizarPrevia() {
+
+        if (sessionStorage.ID_USUARIO == undefined) {
+            window.location.href = "login.html"
+        }
+
+        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO
+
+        function Sair() {
+            sessionStorage.clear()
+            window.location.href = "../index.html"
+        }
 
         if (ipt_titulo.value == "") {
             previa_titulo.innerHTML = `Título do momento`
@@ -203,7 +214,62 @@
         }
 
     }
+    function Publicar() {
+        status_registro.textContent = ""
+        status_registro.classList.remove('erro')
+
+        let categorias = document.getElementsByName("categoria")
+        let marcadas = []
+        for (let i = 0; i < categorias.length; i++) {
+            if (categorias[i].checked) {
+                marcadas.push(categorias[i].value)
+            }
+        }
+
+        if (ipt_titulo.value == "" || ipt_local.value == "" || ipt_data.value == "" || ipt_descricao.value == "") {
+            status_registro.classList.add('erro')
+            status_registro.textContent = "Preencha título, local, data e descrição"
+        } else if (slc_clima.value == "" || slc_humor_antes.value == "" || slc_humor_depois.value == "") {
+            status_registro.classList.add('erro')
+            status_registro.textContent = "Escolha o clima e o humor de antes e depois"
+        } else if (marcadas.length == 0) {
+            status_registro.classList.add('erro')
+            status_registro.textContent = "Marque pelo menos uma categoria"
+        } else {
+            let formData = new FormData()
+            formData.append('tituloServer', ipt_titulo.value)
+            formData.append('localServer', ipt_local.value)
+            formData.append('dataServer', ipt_data.value)
+            formData.append('climaServer', slc_clima.value)
+            formData.append('humorAntesServer', slc_humor_antes.value)
+            formData.append('humorDepoisServer', slc_humor_depois.value)
+            formData.append('descricaoServer', ipt_descricao.value)
+            formData.append('idUsuarioServer', sessionStorage.ID_USUARIO)
+            formData.append('categoriasServer', marcadas.join(","))
+
+            if (ipt_fotos.files.length > 0) {
+                formData.append('foto', ipt_fotos.files[0])
+            }
+
+            fetch("/registros/cadastrar", {
+                method: "POST",
+                body: formData
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    status_registro.textContent = "Registro publicado no seu diário!"
+                    setTimeout(function () {
+                        window.location.href = "diario.html"
+                    }, 2000)
+                } else {
+                    status_registro.classList.add('erro')
+                    status_registro.textContent = "Não foi possível salvar. Tente de novo."
+                }
+            }).catch(function (erro) {
+                status_registro.classList.add('erro')
+                status_registro.textContent = "Erro de conexão. Tente novamente."
+                console.log(erro)
+            })
+        }
+    }
 
 </script>
-
-</html>
